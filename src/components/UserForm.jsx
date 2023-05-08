@@ -18,13 +18,39 @@ const UserForm = (props) => {
       confirmPassword,
     };
 
-    console.log(JSON.stringify(newUser));
-
     setFirstName("");
     setLastName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+  };
+
+  const nameValidation = (name) => {
+    if (name.length < 2 && name.length != 0) {
+      return "Name must be at least 2 characters in length";
+    }
+    return "";
+  };
+
+  const emailValidation = (email) => {
+    if (email.length < 5 && email.length != 0) {
+      return "E-mail must be at least 5 characters in length";
+    }
+    return "";
+  };
+
+  const passwordValidation = (password) => {
+    if (password.length < 8 && password.length != 0) {
+      return "Password must be at least 8 characters in length";
+    }
+    return "";
+  };
+
+  const confirmationValidation = (password, confirmation) => {
+    if (password != confirmation && confirmation.length != 0) {
+      return "Passwords must match";
+    }
+    return "";
   };
 
   return (
@@ -44,6 +70,7 @@ const UserForm = (props) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
               />
+              <p className="text-danger mt-2">{nameValidation(firstName)}</p>
             </div>
             <div className="mb-3">
               <label htmlFor="last_name" className="form-label">
@@ -56,6 +83,7 @@ const UserForm = (props) => {
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
               />
+              <p className="text-danger mt-2">{nameValidation(lastName)}</p>
             </div>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
@@ -68,6 +96,7 @@ const UserForm = (props) => {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
+              <p className="text-danger mt-2">{emailValidation(email)}</p>
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
@@ -81,6 +110,7 @@ const UserForm = (props) => {
                 value={password}
               />
             </div>
+            <p className="text-danger mt-2">{passwordValidation(password)}</p>
             <div className="mb-3">
               <label htmlFor="confirm-password" className="form-label">
                 Confirm Password:
@@ -93,6 +123,9 @@ const UserForm = (props) => {
                 value={confirmPassword}
               />
             </div>
+            <p className="text-danger mt-2">
+              {confirmationValidation(password, confirmPassword)}
+            </p>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
